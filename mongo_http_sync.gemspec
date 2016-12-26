@@ -5,12 +5,12 @@ require 'mongo_http_sync/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "mongo_http_sync"
-  spec.version       = MongoHttpSync::VERSION
+  spec.version       = MongoHTTPSync::VERSION
   spec.authors       = ["André Aizim Kelmanson"]
   spec.email         = ["akelmanson@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{MongoDB HTTP Synchronizer}
+  spec.description   = %q{Synchronizes HTTP services with MongoDB}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
@@ -33,4 +33,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "guard-rspec"
+  spec.add_development_dependency "webmock"
+  spec.add_dependency "mongoid"
+  spec.add_dependency "oj"
+  spec.add_dependency "http"
 end
