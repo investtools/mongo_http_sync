@@ -12,7 +12,7 @@ module MongoHTTPSync
     end
 
     def upsert(json)
-      @output.find(_id: json['_id']).update_one(json, upsert: true)
+      @output.find(_id: json[:_id]).update_one(json, upsert: true)
     end
 
   end

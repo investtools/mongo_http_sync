@@ -12,7 +12,7 @@ module MongoHTTPSync
     end
 
     def upsert(json)
-      doc = @output.where(_id: json['_id']).first
+      doc = @output.where(_id: json[:_id]).first
       if doc.nil?
         @output.create! json
       else

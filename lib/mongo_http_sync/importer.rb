@@ -9,15 +9,16 @@ module MongoHTTPSync
       @output = output
     end
 
-    def import(url, key: 'id')
+    def import(url, key: :id, entity: nil)
       last_updated_doc = find_last_updated_doc
       newest_update = last_updated_doc['updated_at'] unless last_updated_doc.nil?
       unless newest_update.nil?
         url = append_query_param(url, 'updated_since', newest_update.utc.strftime('%Y-%m-%d %H:%M:%S.%L UTC'))
       end
-      puts url
       Parser.parse(HTTP.get(url).body) do |json|
-        json['_id'] = json.delete(key)
+        json[:_id] = json.delete(key)
+        json[:updated_at] = Time.parse(json[:updated_at])
+        json = entity.represent(json).as_json if entity.present?
         upsert(json)
       end
     end

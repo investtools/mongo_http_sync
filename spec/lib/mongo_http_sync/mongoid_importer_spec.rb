@@ -1,7 +1,7 @@
 require 'mongo_http_sync/mongoid_importer'
 require 'mongoid'
 
-require 'support/mongo_http_sync/importer'
+require 'support/mongo_http_sync/importer_spec_group'
 
 describe MongoHTTPSync::MongoidImporter do
   PERSON_CLASS = Class.new do

@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mongoid"
   spec.add_dependency "oj"
   spec.add_dependency "http"
+  spec.add_dependency "grape-entity"
 end

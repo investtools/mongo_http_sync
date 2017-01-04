@@ -38,5 +38,20 @@ RSpec.shared_examples 'an importer' do |importer, collection_name|
         expect(people.find.first['name']).to eq 'Andre'
       end
     end
+    context 'when an entity is defined' do
+      let(:entity_class) do
+        Class.new(MongoHTTPSync::Entity) do
+          expose('name') { |person| person[:name].upcase }
+        end
+      end
+      it 'applies it before persisting' do
+        importer.import('http://www.example.com/clients', entity: entity_class)
+        expect(people.find.first).to eq(
+          '_id' => '1a',
+          'name' => 'ANDRE',
+          'updated_at' => Time.parse('2015-05-05 10:10:10.123 UTC')
+        )
+      end
+    end
   end
 end

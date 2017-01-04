@@ -5,7 +5,7 @@ describe MongoHTTPSync::Parser do
   let(:json) { content.to_json }
   let(:io) { StringIO.new(json) }
   describe '.parse' do
-    let(:content) { [ { 'name' => 'Andre' } ] }
+    let(:content) { [ { name: 'Andre' } ] }
     it 'yields for each item' do
       expect { |b| MongoHTTPSync::Parser.parse(io, &b) }.to yield_with_args(*content)
     end
@@ -13,7 +13,7 @@ describe MongoHTTPSync::Parser do
       expect(MongoHTTPSync::Parser.parse(io) {}).to eq 1
     end
     context 'when there is a hash inside a hash' do
-      let(:content) { [ { 'name' => 'Andre', 'location' => { 'country' => 'Brazil' } } ] }
+      let(:content) { [ { name: 'Andre', location: { country: 'Brazil' } } ] }
       it 'does not yield for inner hash' do
         expect { |b| MongoHTTPSync::Parser.parse(io, &b) }.to yield_with_args(*content)
       end
@@ -34,7 +34,7 @@ describe MongoHTTPSync::Parser do
       end
       let(:io) { mock_io_class.new(json) }
       it 'uses IO#readpartial' do
-        expect { |b| MongoHTTPSync::Parser.parse(io, &b) }.to yield_with_args('name' => 'Andre')
+        expect { |b| MongoHTTPSync::Parser.parse(io, &b) }.to yield_with_args(name: 'Andre')
       end
     end
   end

@@ -31,7 +31,7 @@ module MongoHTTPSync
       end
 
       def hash_set(h,k,v)
-        h[k] = v
+        h[k.to_sym] = v
       end
 
       def array_start
