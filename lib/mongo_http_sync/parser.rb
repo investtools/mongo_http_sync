@@ -4,7 +4,7 @@ module MongoHTTPSync
   class Parser
     def self.parse(io, &block)
       handler = Handler.new(block)
-      Oj.sc_parse(handler, ReadpartialWorkaround.new(io))
+      Oj.sc_parse(handler, io)
       handler.ndocs
     end
     class Handler < ::Oj::ScHandler
@@ -44,24 +44,6 @@ module MongoHTTPSync
 
       def error(message, line, column)
         throw "#{message} (line: #{line}, column: #{column})"
-      end
-    end
-    class ReadpartialWorkaround
-      def initialize(target)
-        @target = target
-      end
-      def readpartial(maxlen)
-        if @buffer and @buffer.length > 0
-          buff = @buffer[0..maxlen-1]
-          @buffer = @buffer[maxlen..-1]
-          return buff
-        end
-        r = @target.readpartial(maxlen)
-        if r.dup.bytesize > maxlen
-          @buffer = r[maxlen..-1]
-          r = r[0..maxlen-1]
-        end
-        r
       end
     end
   end

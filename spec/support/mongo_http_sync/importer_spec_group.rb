@@ -1,6 +1,5 @@
 require 'webmock/rspec'
 require 'mongo'
-
 RSpec.shared_examples 'an importer' do |importer, collection_name|
   let(:people) { $client[collection_name] }
   describe '#import' do
